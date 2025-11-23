@@ -1,0 +1,28 @@
+{
+  "configs": [
+    "contact-details-google-sheet-sync-service-sys-api.xml",
+    "implementation.xml",
+    "global.xml"
+  ],
+  "secureProperties": [
+    "db.password",
+    "http.request.header.clientSecret"
+  ],
+  "redeploymentEnabled": true,
+  "name": "contact-details-google-sheet-sync-service-sys-api.xml",
+  "minMuleVersion": "4.9.3",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "javaSpecificationVersions": [
+    "17"
+  ]
+}

@@ -1,0 +1,13 @@
+#Configuration File
+
+http:
+  port: "8081"
+  request:
+    header:
+      clientId: "2f9f2d34-cf0d-44d0-bac3-636182f402db"
+      
+db:
+  host: "64.227.37.97"
+  port: "3306"
+  user: "njclabs"
+  name: "nrs" 
