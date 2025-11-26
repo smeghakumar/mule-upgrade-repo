@@ -1,0 +1,32 @@
+{
+  "headers": {
+    "x-correlation-id": "sfa",
+    "authorization": "sasf",
+    "password": "sads",
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.28.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "d8b7d3bf-bedf-4561-806d-5f648260e412",
+    "host": "localhost:8082",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "835"
+  },
+  "clientCertificate": null,
+  "method": "POST",
+  "scheme": "http",
+  "queryParams": {},
+  "requestUri": "/api/assets",
+  "queryString": "",
+  "version": "HTTP/1.1",
+  "maskedRequestPath": "/assets",
+  "listenerPath": "/api/*",
+  "relativePath": "/api/assets",
+  "localAddress": "/127.0.0.1:8082",
+  "uriParams": {},
+  "rawRequestUri": "/api/assets",
+  "rawRequestPath": "/api/assets",
+  "remoteAddress": "/127.0.0.1:51287",
+  "requestPath": "/api/assets"
+}

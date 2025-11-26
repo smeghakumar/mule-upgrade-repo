@@ -1,0 +1,36 @@
+#https/http configurations
+"http":
+  "port": "8082"
+
+# api details
+"api":
+  "name" : "${project.name}"
+  "environment": "sandbox"
+  "status" : "ok"
+  "version" : "${project.version}"
+  
+#amq configurations
+"amq":
+  "url": "https://mq-eu-west-2.anypoint.mulesoft.com/api/v1"
+  "clientId": "![Z/GXBlU5s0x3PTiKDrNFGNA8cX6tuvh3k4y9hgPhteEExWYQBLEmMQ==]" 
+  "clientSecret": "![CaY6QRBKsaahvq1arW/ajPipW6LYHpQW9V4+w6+8QEPl+Tt8JFBCNw==]"
+  "queue" : "aws-asset-queue"  
+  
+# reconnection configuration
+Retries:
+  frequency: "2000"
+  attempt: "3"
+  timeout: "400000"
+  
+# reconnection configuration
+"retries":
+  "frequency": "2000"
+  "attempts": "3"
+  "timeout": "400000"    
+
+# error notification email config
+"error.notify":
+ "tomail": "diageotestmule@gmail.com" 
+ "sub": "Diageo-Application-Error: Description notificationDetails"
+ "flag": "N"  
+  
