@@ -1,0 +1,47 @@
+#API Configurations
+api:
+  name: "${api.name}"
+  version: "${project.version}"
+  #Replace with respective autodiscovery id
+  autodiscoveryID: "16422510"
+
+# Listener configuration
+https:
+  host: "0.0.0.0"
+  port: "8082"
+
+# API Configuration
+jira-sys-api:
+    http-listener:
+      path: "/api/*"
+
+# JIRA API Configurations
+jira:
+  #Replace the hostname of the JIRA Instance
+  host: "njc-accelarator.atlassian.net"
+  port: "443"
+  base-path: "/"
+  response-timeout: "60000"
+  connection-idle-timeout: "3000"
+  http-frequency: "5000"
+  http-reconnection-attempts: "2" 
+  path: "/rest/api/2/issue"
+  get-issue-path: "/rest/api/3/issue"
+  
+jira-auth:
+  token: "Basic dG9zdWRoYTg1QGdtYWlsLmNvbTpWRDA4TmlyTkM0T09rSmFZMHdjVDJBOEE="
+  
+# Retry configuration
+retry:
+   jira: 
+    delayMillisecs: "3000"
+    numRetries: "3"
+    
+# Customize the application messages in the below section
+application-msgs:
+  #Before Connector logger message
+  before-connector-call-message: "Before Connector Call"
+  #After Connector logger message
+  after-connector-call-message: "After Connector Call"
+  #Local Exception logger message
+  local-exception-handler-message: "Exception has occured"

@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "4a761f3c-68bd-4332-bcdf-f18b912bd226",
+		"name": "accelerator-jira-sys-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Release 1.3",
+			"item": [
+				{
+					"name": "Create Issue In JIRA Success Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"projectKey\": \"AC\",\n  \"summary\": \"Test For JIRA From Mule.\",\n  \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\n  \"priority\": \"1\",\n  \"sfdcCaseId\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "https://{{host_jira_sys_api}}/api/issue",
+							"protocol": "https",
+							"host": [
+								"{{host_jira_sys_api}}"
+							],
+							"path": [
+								"api",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Issue In JIRA Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"summary\": \"Test For JIRA From Mule.\",\n  \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\n  \"priority\": \"1\",\n  \"sfdcCaseId\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "https://{{host_jira_sys_api}}/api/issue",
+							"protocol": "https",
+							"host": [
+								"{{host_jira_sys_api}}"
+							],
+							"path": [
+								"api",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Issue In JIRA Bad Request-Exception Handling",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"projectKey\": \"2123\",\n  \"summary\": \"Test For JIRA From Mule.\",\n  \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\n  \"priority\": \"1\",\n  \"sfdcCaseId\": \"2\"\n}"
+						},
+						"url": {
+							"raw": "https://{{host_jira_sys_api}}/api/issue",
+							"protocol": "https",
+							"host": [
+								"{{host_jira_sys_api}}"
+							],
+							"path": [
+								"api",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Query Issue In JIRA Success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{host_jira_sys_api}}/api/issue/10055",
+							"protocol": "https",
+							"host": [
+								"{{host_jira_sys_api}}"
+							],
+							"path": [
+								"api",
+								"issue",
+								"10055"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Query Issue In JIRA Invalid URI Param",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://{{host_jira_sys_api}}/api/issue/32344",
+							"protocol": "https",
+							"host": [
+								"{{host_jira_sys_api}}"
+							],
+							"path": [
+								"api",
+								"issue",
+								"32344"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Release 1.4",
+			"item": [
+				{
+					"name": "Query Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{host_jira_sys_api}}/api/ping",
+							"protocol": "https",
+							"host": [
+								"{{host_jira_sys_api}}"
+							],
+							"path": [
+								"api",
+								"ping"
+							]
+						},
+						"description": "Call ping operation with no parameters"
+					},
+					"response": []
+				},
+				{
+					"name": "Query Health with Dependencies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{host_jira_sys_api}}/api/ping?checkDependencies=true",
+							"protocol": "https",
+							"host": [
+								"{{host_jira_sys_api}}"
+							],
+							"path": [
+								"api",
+								"ping"
+							],
+							"query": [
+								{
+									"key": "checkDependencies",
+									"value": "true",
+									"description": "Include health of dependencies"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Query Health with Invalid Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{host_jira_sys_api}}/api/ping?checkDependencies=true-ish",
+							"protocol": "https",
+							"host": [
+								"{{host_jira_sys_api}}"
+							],
+							"path": [
+								"api",
+								"ping"
+							],
+							"query": [
+								{
+									"key": "checkDependencies",
+									"value": "true-ish",
+									"description": "Should not return dependencies"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host_jira_sys_api",
+			"value": "accel-jira-sys-api-v1-dev.ca-c1.cloudhub.io"
+		}
+	]
+}

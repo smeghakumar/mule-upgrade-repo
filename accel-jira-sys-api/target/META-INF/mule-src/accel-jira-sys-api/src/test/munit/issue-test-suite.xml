@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="issue-test-suite.xml" />
+	<munit:test name="issue-test-suite-post:\issue:application\json:jira-sys-api-configTest" doc:id="e4509dbb-d4ed-4742-a1d6-f77c2379be4c" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="37bd30d9-fabb-4db9-9795-3ec1a901feca" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Invoke Jira API POST" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[%dw 2.0
+output application/json
+---
+  {
+    id: '10303',
+    key: 'AC-303'
+   
+    
+  }]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="e3882cc2-6794-40cb-a001-649cca1c5856" >
+				<munit:payload value="#[readUrl('classpath://transforms/examples/issue-create-mock-payload.dwl')]" />
+				<munit:attributes value="#[{uriParams : {'issueId' :p('munit.issueId')}}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\issue:application\json:jira-sys-api-config" doc:id="80755c95-5d7e-4676-8157-08c10e656f06" name="post:\issue:application\json:accelerator-jira-sys-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="51691124-e6a5-4585-92ae-0f2a5520d12f" message="Test Failed" expression="#[payload.id]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="issue-test-suite-bad-request-post:\issue:application\json:jira-sys-api-configTest1" doc:id="22428ed5-d99d-4b16-a725-57df0009befc" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="d605e786-81f0-4040-baab-b1e5bde3b4be" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Invoke Jira API POST" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="httpStatus" value="#['400']" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="5415e345-f9b8-46ad-a16a-33df12830419" >
+				<munit:payload value="#[readUrl('classpath://transforms/examples/issue-create-bad-req-mock-payload.dwl')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\issue:application\json:jira-sys-api-config" doc:id="97f16d44-3b7d-4ce3-9a89-b7f8fc870c01" name="post:\issue:application\json:accelerator-jira-sys-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="3fa5c876-d459-4fd7-afcd-0260317bfc81" actual="#[vars.httpStatus]" expected="400" message="BAD REQUEST FAILED"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="issue-test-suite-retry-exhaust-post:\issue:application\json:jira-sys-api-configTest1" doc:id="4b092014-f7e0-4c00-adad-db04ce762829" description="Test" expectedErrorType="MULE:RETRY_EXHAUSTED">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="dfa08ccf-3943-4c5a-be10-4d505f44a0e6" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Invoke Jira API POST" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="MULE:RETRY_EXHAUSTED" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="031f1322-4e31-423f-aabb-55af10c4129a" >
+				<munit:payload value="#[readUrl('classpath://transforms/examples/issue-create-bad-req-mock-payload.dwl')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\issue:application\json:jira-sys-api-config" doc:id="3ac97cdc-caa9-4d0c-b65e-d51169e207ed" name="post:\issue:application\json:accelerator-jira-sys-api-config"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="issue-test-suite-get:\issue\(issueId):jira-sys-api-configTest" doc:id="0b58b19f-5c1a-4185-b623-dac15c7fc8ad" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="257c9c21-0334-4022-8e89-0a8b347203f3" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Invoke Jira API GET" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;   {&#10;  "projectKey": "SC",&#10;  "summary": "Test For JIRA From MUNIT",&#10;  "description": "Test For JIRA From MUNIT",&#10;  "issuetype": "bug",&#10;  "priority": "high",&#10;  "sfdcCaseId": "1",&#10;  "status": "priority",&#10;  "owner": "",&#10;  "lastUpdatedDate": "",&#10;  "comments": "",&#10;  "externalComments": "",&#10;  "externalStatus": "passed",&#10;  "externalSystemLastUpdated": "",&#10;  "externalOwner": "",&#10;  "externalPriority": "none"&#10;}&#10; ]' mediaType="application/json" />
+					<munit-tools:variables >
+						<munit-tools:variable key="issueId" value="#['12345']" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+				
+		
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="247ae2d6-44a2-4658-b110-ac983a0295e9" >
+				<munit:payload value=" " />
+				<munit:attributes value="#[{uriParams : {'issueId' :p('munit.issueId')}}]" />
+				<munit:variables >
+					<munit:variable key="issueId" value="#['12345']" />
+				</munit:variables>
+				
+
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\issue\(issueId):jira-sys-api-config" doc:id="bf4fcf36-9472-458e-ac2c-36c1915c101f" name="get:\issue\(issueId):accelerator-jira-sys-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="5c292712-3c15-4ee0-80cd-61454e76d4fb" is="#[MunitTools::notNullValue()]" expression="#[payload]" message="Test Failed"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="issue-test-suite-get:\issue\(issueId):jira-sys-api-configTest1-invalidURIParam" doc:id="10ddbd8a-f6c2-4f09-9fbb-17f542c6eabe" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="150b2120-bd85-48ce-a7b8-795916ceb846" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Invoke Jira API GET" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="httpStatus" value="#['400']" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="8629e0a8-9194-4692-9706-0814b2b424ec" >
+				<munit:attributes value="#[{uriParams : {'issueId' :'ABDND'}}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\issue\(issueId):jira-sys-api-config" doc:id="72488f90-2e14-4bc9-88f1-60e9c50ec99e" name="get:\issue\(issueId):accelerator-jira-sys-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="182a784f-0411-4a43-8598-9753506e20ab" actual="#[vars.httpStatus]" expected="400" message="BAD REQUEST FAILED"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>

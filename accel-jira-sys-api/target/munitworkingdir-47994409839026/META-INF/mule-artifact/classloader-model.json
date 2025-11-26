@@ -1,0 +1,195 @@
+{
+  "version": "1.2.0",
+  "artifactCoordinates": {
+    "groupId": "org.mule.examples",
+    "artifactId": "accel-jira-sys-api",
+    "version": "1.0.0-SNAPSHOT",
+    "type": "jar",
+    "classifier": "mule-application"
+  },
+  "dependencies": [
+    {
+      "artifactCoordinates": {
+        "groupId": "org.mule.examples",
+        "artifactId": "accelerator-common-core",
+        "version": "1.5.1",
+        "type": "jar"
+      },
+      "uri": "file:/Users/megha/.m2/repository/org/mule/examples/accelerator-common-core/1.5.1/accelerator-common-core-1.5.1.jar",
+      "resources": [
+        "META-INF/maven/org.mule.examples/accelerator-common-core/pom.properties",
+        "META-INF/maven/org.mule.examples/accelerator-common-core/pom.xml",
+        "META-INF/mule-artifact/mule-artifact.json",
+        "common-error-handler.xml",
+        "config/common-config-dev.yaml",
+        "config/common-config-local.yaml",
+        "global-common.xml",
+        "keystore/accelerator-keystore.jks",
+        "log4j2.xml"
+      ]
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "com.mulesoft.connectors",
+        "artifactId": "anypoint-mq-connector",
+        "version": "3.1.5",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/com/mulesoft/connectors/anypoint-mq-connector/3.1.5/anypoint-mq-connector-3.1.5-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "org.mule.connectors",
+        "artifactId": "mule-file-connector",
+        "version": "1.5.5",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/org/mule/connectors/mule-file-connector/1.5.5/mule-file-connector-1.5.5-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "org.mule.modules",
+        "artifactId": "mule-module-file-extension-common",
+        "version": "1.4.5",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/org/mule/modules/mule-module-file-extension-common/1.4.5/mule-module-file-extension-common-1.4.5-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "org.mule.connectors",
+        "artifactId": "mule-http-connector",
+        "version": "1.11.0",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/org/mule/connectors/mule-http-connector/1.11.0/mule-http-connector-1.11.0-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "org.mule.connectors",
+        "artifactId": "mule-sockets-connector",
+        "version": "1.2.7",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/org/mule/connectors/mule-sockets-connector/1.2.7/mule-sockets-connector-1.2.7-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "org.mule.modules",
+        "artifactId": "mule-apikit-module",
+        "version": "1.11.10",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/org/mule/modules/mule-apikit-module/1.11.10/mule-apikit-module-1.11.10-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "com.mulesoft.modules",
+        "artifactId": "mule-secure-configuration-property-module",
+        "version": "1.2.7",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/com/mulesoft/modules/mule-secure-configuration-property-module/1.2.7/mule-secure-configuration-property-module-1.2.7-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "com.mulesoft.munit",
+        "artifactId": "munit-runner",
+        "version": "3.6.1",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/com/mulesoft/munit/munit-runner/3.6.1/munit-runner-3.6.1-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "com.mulesoft.munit",
+        "artifactId": "munit-tools",
+        "version": "3.6.1",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/com/mulesoft/munit/munit-tools/3.6.1/munit-tools-3.6.1-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "org.mule.modules",
+        "artifactId": "mule-validation-module",
+        "version": "2.0.8",
+        "type": "jar",
+        "classifier": "mule-plugin"
+      },
+      "uri": "file:/Users/megha/.m2/repository/org/mule/modules/mule-validation-module/2.0.8/mule-validation-module-2.0.8-mule-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "org.mule.weave",
+        "artifactId": "assertions",
+        "version": "1.0.6",
+        "type": "jar"
+      },
+      "uri": "file:/Users/megha/.m2/repository/org/mule/weave/assertions/1.0.6/assertions-1.0.6.jar",
+      "resources": [
+        "META-INF/MANIFEST.MF",
+        "META-INF/maven/org.mule.weave/assertions/pom-default.xml",
+        "META-INF/maven/org.mule.weave/assertions/pom.properties",
+        "META-INF/native-image/org.mule.weave/assertions/resource-config.json",
+        "dw/test/Asserts.dwl",
+        "dw/test/internal/Utils.dwl"
+      ]
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "org.mule.weave",
+        "artifactId": "wlang",
+        "version": "2.4.0",
+        "type": "jar"
+      },
+      "uri": "file:/Users/megha/.m2/repository/org/mule/weave/wlang/2.4.0/wlang-2.4.0.jar",
+      "resources": [
+        "META-INF/MANIFEST.MF",
+        "META-INF/maven/org.mule.weave/wlang/pom-default.xml",
+        "META-INF/maven/org.mule.weave/wlang/pom.properties",
+        "META-INF/native-image/org.mule.weave/wlang/resource-config.json",
+        "dw/Core.dwl",
+        "dw/Crypto.dwl",
+        "dw/Runtime.dwl",
+        "dw/System.dwl",
+        "dw/core/Arrays.dwl",
+        "dw/core/Binaries.dwl",
+        "dw/core/Dates.dwl",
+        "dw/core/Numbers.dwl",
+        "dw/core/Objects.dwl",
+        "dw/core/Periods.dwl",
+        "dw/core/Strings.dwl",
+        "dw/core/Types.dwl",
+        "dw/core/URL.dwl",
+        "dw/extension/DataFormat.dwl",
+        "dw/module/Multipart.dwl",
+        "dw/util/Coercions.dwl",
+        "dw/util/Diff.dwl",
+        "dw/util/Math.dwl",
+        "dw/util/Timer.dwl",
+        "dw/util/Tree.dwl",
+        "dw/util/Values.dwl"
+      ]
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "b0beec90-c6cc-4c36-8f7c-ef1f8f91253b",
+        "artifactId": "apix-accel-jira-sapi",
+        "version": "1.0.0",
+        "type": "zip",
+        "classifier": "raml"
+      },
+      "uri": "file:/Users/megha/.m2/repository/b0beec90-c6cc-4c36-8f7c-ef1f8f91253b/apix-accel-jira-sapi/1.0.0/apix-accel-jira-sapi-1.0.0-raml.zip"
+    }
+  ]
+}

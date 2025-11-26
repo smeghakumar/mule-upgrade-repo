@@ -1,0 +1,74 @@
+{
+  "configs": [
+    "issue.xml",
+    "ping.xml",
+    "global.xml",
+    "accelerator-jira-sys-api.xml"
+  ],
+  "secureProperties": [
+    "mule.key",
+    "anypoint.platform.client_secret",
+    "jira-auth.token"
+  ],
+  "supportedJavaVersions": [],
+  "redeploymentEnabled": true,
+  "name": "org.mule.examples:accel-jira-sys-api:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.10.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "log4j2.xml",
+        "global.xml",
+        "config/config-local.yaml",
+        "config/config-dev.yaml",
+        "config/config-secured-dev.yaml",
+        "config/config-secured-local.yaml",
+        "accelerator-jira-sys-api.xml",
+        "issue.xml",
+        "application-types.xml",
+        "transforms/dwl/jira-issue-request.dwl",
+        "transforms/dwl/jira-query-issue-response.dwl",
+        "transforms/examples/issue-create-mock-payload.dwl",
+        "transforms/examples/issue-create-bad-req-mock-payload.dwl",
+        "transforms/examples/readme.txt",
+        "ping.xml",
+        "examples/issue.json",
+        "examples/jira-issue-query-response.json",
+        "dw/util/Math.dwl",
+        "dw/test/internal/Utils.dwl",
+        "dw/core/Objects.dwl",
+        "dw/util/Coercions.dwl",
+        "dw/System.dwl",
+        "dw/core/Arrays.dwl",
+        "dw/core/Binaries.dwl",
+        "dw/core/Types.dwl",
+        "dw/util/Tree.dwl",
+        "dw/core/Numbers.dwl",
+        "dw/util/Diff.dwl",
+        "dw/test/Asserts.dwl",
+        "dw/core/URL.dwl",
+        "dw/util/Timer.dwl",
+        "dw/core/Dates.dwl",
+        "dw/core/Strings.dwl",
+        "dw/Crypto.dwl",
+        "MunitTools.dwl",
+        "dw/module/Multipart.dwl",
+        "dw/Runtime.dwl",
+        "dw/Core.dwl",
+        "dw/util/Values.dwl",
+        "dw/extension/DataFormat.dwl",
+        "dw/core/Periods.dwl"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "javaSpecificationVersions": [
+    "17"
+  ]
+}

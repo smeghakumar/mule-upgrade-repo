@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<global-property doc:name="Global Property-mule.env" doc:id="9fd2861b-205f-404e-9c1b-90162baf5e4f" name="mule.env" value="dev" />
+	<global-property doc:name="Global Property-mule.key" doc:id="6bc550ed-7b9f-4cc3-8156-17136f16bcdd" name="mule.key" value="Salesforce123456" />
+    <import doc:name="import-global-common" doc:id="64cf7754-1f2a-48b6-b46d-acda67c541f3" file="global-common.xml" />
+    <import doc:name="import-common-error-handler" doc:id="7305749e-0d40-4cc4-8f94-88223c8bf7cc" file="common-error-handler.xml" />
+    <configuration doc:name="configuration-application-error-handler" doc:id="97127df1-2867-48a3-a988-846b77a09bff" defaultErrorHandler-ref="error-handler_common" />
+    <configuration-properties doc:name="env-configuration-properties" doc:id="628f019a-34c8-4399-9023-46323bb15f1b" file="config/config-${mule.env}.yaml" />
+    <secure-properties:config name="secure-configuration-properties" doc:name="secure-configuration-properties" doc:id="443e4fa6-28df-4d3e-9371-4da276dbf8f0" file="config/config-secured-${mule.env}.yaml" key="${mule.key}" />
+    <http:listener-config name="jira-sys-api-httpListenerConfig">
+        <http:listener-connection host="${https.host}" port="${https.port}" protocol="HTTPS" tlsContext="common-selfsigned_tlsContext"/>
+    </http:listener-config>
+    <http:request-config name="jira-httpRequestConfig" doc:name="HTTP Request configuration" doc:id="8b5baa14-55db-4b07-ab30-52880f4247b1" basePath="${jira.base-path}" responseTimeout="${jira.response-timeout}">
+        <http:request-connection host="${jira.host}" connectionIdleTimeout="${jira.connection-idle-timeout}" protocol="HTTPS">
+            <reconnection>
+                <reconnect frequency="${jira.http-frequency}" count="${jira.http-reconnection-attempts}" />
+            </reconnection>
+        </http:request-connection>
+    </http:request-config>
+    <!-- api-gateway:autodiscovery
+    apiId="${api.autodiscoveryID}" doc:name="API Autodiscovery"
+    doc:id="4d05e7ff-9c72-4a08-aaf1-3d7dba14684b"
+    flowRef="jira-sys-api_jira-sys-api-main"/ -->
+</mule>

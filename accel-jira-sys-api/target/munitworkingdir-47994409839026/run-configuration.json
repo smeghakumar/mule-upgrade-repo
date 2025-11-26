@@ -1,0 +1,93 @@
+{
+  "runToken": "069ae521-3ff1-4359-83bd-9171393c391f",
+  "projectName": "accel-jira-sys-api",
+  "domainLocation": "",
+  "tags": [],
+  "testNames": [],
+  "testNamesWithSuite": [],
+  "suitePaths": [
+    "issue-test-suite.xml",
+    "ping-test-suite.xml",
+    "jira-sys-api-test-suite.xml"
+  ],
+  "allSuitePaths": [
+    "issue-test-suite.xml",
+    "ping-test-suite.xml",
+    "jira-sys-api-test-suite.xml"
+  ],
+  "skipAfterFailure": false,
+  "mmvs": [],
+  "notifierConfigurations": [
+    {
+      "clazz": "org.mule.munit.remote.notifiers.ConsoleNotifier",
+      "parameters": [
+        {
+          "name": "runToken",
+          "type": "java.lang.String",
+          "value": "069ae521-3ff1-4359-83bd-9171393c391f"
+        }
+      ]
+    }
+  ],
+  "coverageConfiguration": {
+    "runCoverage": true,
+    "randomizeCoveragePort": true,
+    "suitePaths": [
+      "issue-test-suite.xml",
+      "ping-test-suite.xml",
+      "jira-sys-api-test-suite.xml"
+    ],
+    "ignoredFiles": [
+      "global-common.xml",
+      "common-error-handler.xml"
+    ],
+    "ignoredFlowNames": []
+  },
+  "containerConfiguration": {
+    "value": {
+      "mavenConfiguration": {
+        "settingsXmlFilePath": "/Users/megha/.m2/settings.xml",
+        "globalSettingsXmlFilePath": "/Users/megha/maven-3.9.11.2/conf/settings.xml",
+        "mavenRepositoryDirectoryPath": "/Users/megha/.m2/repository",
+        "activeProfiles": [
+          "mulesoft"
+        ],
+        "offlineMode": false,
+        "forcePolicyUpdate": true,
+        "ignoreArtifactDescriptorRepositories": false,
+        "remoteRepositories": [
+          {
+            "id": "mule-public",
+            "url": "https://repository.mulesoft.org/nexus/content/repositories/public"
+          },
+          {
+            "id": "mulesoft-releases",
+            "url": "https://repository.mulesoft.org/releases/"
+          },
+          {
+            "id": "anypoint-exchange-v2",
+            "url": "https://maven.anypoint.mulesoft.com/api/v2/maven"
+          },
+          {
+            "id": "central",
+            "url": "https://repo.maven.apache.org/maven2"
+          }
+        ]
+      },
+      "serverPluginConfigurations": [
+        {
+          "groupId": "com.mulesoft.munit.plugins",
+          "artifactId": "munit-coverage-plugin",
+          "version": "3.6.1",
+          "type": "jar",
+          "classifier": "mule-server-plugin"
+        }
+      ],
+      "runtimeId": "4.10.0",
+      "product": "MULE_EE",
+      "munitWorkingDirectoryPath": "/Users/megha/Documents/Demo/MuleUpgradeProjects/upgraded-projects/archive/accel-jira-sys-api_work/target/munitworkingdir-47994409839026",
+      "log4JConfigurationFilePath": "/Users/megha/Documents/Demo/MuleUpgradeProjects/upgraded-projects/archive/accel-jira-sys-api_work/target/test-classes/log4j2-test.xml"
+    }
+  },
+  "clearParameters": false
+}
