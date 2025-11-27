@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	
+	
+	<flow name="insert-update-contact-detail-flow" doc:id="b30f5692-56dd-4f00-b41c-b498369ea72c" >
+		<logger level="INFO" doc:name="Log Payload" doc:id="0b5423df-9fb4-4b62-bd63-930f1d7cb94c" message='#[payload]'/>
+		<flow-ref doc:name="Validate Client Credentials" doc:id="d4ca4540-c761-48ed-92ef-eff9dc17437a" name="validate-client-credentials-flow"/>
+		<choice doc:name="Choice" doc:id="c27af836-628c-40df-81ec-76751a96954d" >
+			<when expression="#[!isEmpty(payload)]">
+				<ee:transform doc:name="Transform Message" doc:id="448a4b9e-3f6b-49f8-b6cd-b602982b10e7">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+message.payload map(value,index)->
+{
+	"activeSheet": value.activeSheet,
+	"id": value.rowNumber,
+    "custName": if(value.columnName == 'Name')
+    				value.cellValue
+    			else
+    				"",
+    "custNormalizedName": if(value.columnName == 'Normalized Name')
+    				value.cellValue
+    			else
+    				"",
+   	"custEmail": if(value.columnName == 'Email')
+    				value.cellValue
+    			else
+    				"",
+    "custEmailReformatted": if(value.columnName == 'Email (Reformatted)')
+    				value.cellValue
+    			else
+    				""
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+				<set-variable value="#[(payload.*activeSheet distinctBy $)[0]]" doc:name="Set Transformed Payload Message" doc:id="5eb4a53f-afb4-437c-88f3-145b401f71a5" variableName="activeSheet" />
+				<flow-ref doc:name="Sync Contact Details Sub Flow" doc:id="6468514c-9321-409e-80d0-28e60947a057" name="db-sync-contact-details-sub-flow" />
+				<set-payload value='#["Sync Completed for- " ++ vars.activeSheet as String]' doc:name="Set Payload" doc:id="e8ca104f-7620-4f3b-a80f-e438b505c57e" />
+				<logger level="INFO" doc:name="Logger" doc:id="fea59bc0-071c-4a17-b50a-a2693502b69f" message='#[payload]' />
+			</when>
+			<otherwise >
+				<set-payload value='#["Empty Payload"]' doc:name="Set Payload Empty Message" doc:id="cbb86355-3b4c-4964-95ad-d9450147294b" />
+				<logger level="INFO" doc:name="Log Message" doc:id="8b0250cb-2deb-4ac2-aa1b-71d03607b72e" message='#[payload]'/>
+			</otherwise>
+		</choice>
+	
+	</flow>
+
+	<flow name="validate-client-credentials-flow" doc:id="75034887-a3fe-4be8-990a-d99ef906d5a3" >
+		<set-variable value="${http.request.header.clientId}" doc:name="Set Client Id" doc:id="a2570412-858a-4e25-bce7-2212cf3e246c" variableName="clientId"/>
+		<set-variable value="${http.request.header.clientSecret}" doc:name="Set Client Secret" doc:id="0c239ea3-e7fe-4e87-ae14-94a0ff9993d2" variableName="clientSecret"/>
+		<choice doc:name="Choice" doc:id="a9fa957a-9e3e-4f70-885a-40ea1add3810" >
+			<when expression="#[attributes.headers.'X-API-ClientKey' == vars.clientId and attributes.headers.'X-API-ClientSecret' == vars.clientSecret]">
+				<logger level="INFO" doc:name="Logger" doc:id="843bd9e2-bd7f-4314-a694-99f72c9e08cb" message='#["Client Credentials Authorized"]'/>
+			</when>
+			<otherwise >
+				<raise-error doc:name="Raise error" doc:id="217b3789-239e-4c57-814f-fb4c2cfb6778" type="APP:UNAUTHORIZED"/>
+			</otherwise>
+		</choice>
+	</flow>
+	
+	<sub-flow name="db-sync-contact-details-sub-flow" doc:id="157ea475-89df-410f-8038-b2f3995229af" >
+		<choice doc:name="Choice" doc:id="622beb4a-d86e-4d49-b3cb-4d2cdf2cc0b7">
+						<when expression='#[vars.activeSheet=="Name Matching"]'>
+				<ee:transform doc:name="Transform Message" doc:id="71ec0a7f-3a49-4ab0-b752-efb58ea81dae">
+						<ee:message>
+							<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+message.payload map(value)->
+{
+	"contact_id": value.id,
+    "contact_name": value.custName,
+    "contact_normalized_name": value.custNormalizedName
+   	
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+				<set-variable value="#[payload]" doc:name="Set Variable" doc:id="2261476d-7a54-4854-9901-6ac46ee60df0" variableName="originalPayload" />
+						<ee:transform doc:name="Transform Message" doc:id="2d22464f-bc06-4326-974a-dcc71b1c4826">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+(((vars.originalPayload.*"contact_id" distinctBy $) map(value)->
+	{"contact_id": value}).*"contact_id") as Array default [] map($) joinBy ","]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<logger level="INFO" doc:name="Logger" doc:id="edad0c3f-dc9c-4b5a-8169-69b7dd300c8a" message="#[payload]" />
+						<db:stored-procedure doc:name="Stored procedure" doc:id="5af123c5-b33c-499e-829d-1e3a4c49f276" config-ref="database-config">
+							<error-mapping targetType="DATABASE:ERROR" />
+							<db:sql><![CDATA[call sp_delete_records(:param,:param2);]]></db:sql>
+							<db:input-parameters><![CDATA[#[{"param": payload, "param2": "contact_details" }]]]></db:input-parameters>
+						</db:stored-procedure>
+						<db:bulk-insert doc:name="Bulk insert" doc:id="6fa3e1cb-34d5-435b-bbcd-d5f1469b6bc5" config-ref="database-config">
+						<error-mapping targetType="DATABASE:ERROR" />
+					<db:bulk-input-parameters><![CDATA[#[vars.originalPayload]]]></db:bulk-input-parameters>
+							<db:sql><![CDATA[INSERT INTO contact_details (contact_id,contact_name, contact_normalized_name)
+	VALUES(:contact_id,:contact_name, :contact_normalized_name) 
+	ON DUPLICATE KEY UPDATE    
+	contact_name= IF( :contact_name='',contact_name, :contact_name),
+	contact_normalized_name=IF(:contact_normalized_name='',contact_normalized_name,:contact_normalized_name)]]></db:sql>
+					</db:bulk-insert>
+						
+</when>
+						<when expression='#[vars.activeSheet=="Email Matching"]'>
+						<ee:transform doc:name="Transform Message" doc:id="494f8f65-633a-462c-9fdb-7bef86316480">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+message.payload map(value)->
+{
+	"contact_det_id": value.id,
+    "contact_email": value.custEmail,
+    "contact_email_formatted": value.custEmailReformatted,
+    "contact_normalized_name": value.custNormalizedName
+   	
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<set-variable value="#[payload]" doc:name="Set Variable" doc:id="9a970d12-9d8d-4bf5-bc0d-de95dab817a3" variableName="originalPayload" />
+						<ee:transform doc:name="Transform Message" doc:id="ad0ebdd3-7f1b-4847-a97b-a647c5d8ebcc">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+(((vars.originalPayload.*"contact_det_id" distinctBy $) map(value)->
+	{"contact_det_id": value}).*"contact_det_id") as Array default [] map($) joinBy ","]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<logger level="INFO" doc:name="Logger" doc:id="0d25dafa-fded-4ce0-9648-b59ec7daf89c" message="#[payload]" />
+						<db:stored-procedure doc:name="Stored procedure" doc:id="313bb830-4df1-4cb3-bf33-c36eefb2d768" config-ref="database-config">
+							<error-mapping targetType="DATABASE:ERROR" />
+							<db:sql><![CDATA[call sp_delete_records(:param,:param2);]]></db:sql>
+							<db:input-parameters><![CDATA[#[{"param": payload, "param2": "contact_email_details" }]]]></db:input-parameters>
+						</db:stored-procedure>
+						<db:bulk-insert doc:name="Bulk insert" doc:id="898494f8-18fb-4823-9db3-fe384499dc82" config-ref="database-config">
+					<error-mapping targetType="DATABASE:ERROR" />
+					<db:bulk-input-parameters><![CDATA[#[vars.originalPayload]]]></db:bulk-input-parameters>
+							<db:sql><![CDATA[ 	INSERT INTO contact_email_details (contact_det_id,contact_email,contact_email_formatted, contact_normalized_name)
+	VALUES(:contact_det_id,:contact_email, :contact_email_formatted,:contact_normalized_name) 
+	ON DUPLICATE KEY UPDATE    
+	contact_email= IF( :contact_email='',contact_email, :contact_email),
+	contact_email_formatted=IF( :contact_email_formatted='',contact_email_formatted, :contact_email_formatted),
+	 contact_normalized_name=IF(:contact_normalized_name='',contact_normalized_name,:contact_normalized_name)]]></db:sql>
+				</db:bulk-insert>
+				
+			</when>
+			<otherwise>
+				
+						<logger level="INFO" doc:name="Logger" doc:id="c6a7cfc4-a385-4738-a51c-c91901e1872d" message='#["No Update Done"]'/>
+</otherwise>
+					</choice>
+	
+</sub-flow>
+
+</mule>
