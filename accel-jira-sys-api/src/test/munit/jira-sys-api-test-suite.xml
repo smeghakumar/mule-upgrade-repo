@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="accelerator-servicenow-sys-api-test-suite.xml" />
+	<munit:test name="accelerator-jira-sys-api-mainTest" doc:id="e3c68fb0-8457-49e3-b952-07ebcd385cb3" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="f104a56e-1ab9-4092-bd4f-c4250dc2099f" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="accelerator-jira-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to accelerator-jira-sys-api-main" doc:id="208494f9-67ab-403f-83ce-c53d2fb50a1c" name="accelerator-jira-sys-api-main"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="7bcd17e6-a12c-4bcf-9302-4da81dd1b23a" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="accelerator-jira-sys-api-main-NOTFOUND" doc:id="1ac98299-d405-4975-8395-f1f5c02b6c5a" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="8827c07d-b8c2-4571-8d32-edc13fe1bb49" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="accelerator-jira-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="92214f7d-ead0-4d97-abb1-0e5c38a31c31" >
+				<flow-ref doc:name="Flow Reference" doc:id="8f33c31e-3ec7-4188-84c6-39bd0ae2bc20" name="accelerator-jira-sys-api-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="e797a7dc-f032-433e-8f45-c7b46c2fc2b0" >
+						<logger level="INFO" doc:name="Logger" doc:id="c41f0474-e7b6-4870-9881-65c69ba266f6" message="#[payload]"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="012dec92-2a9a-470f-8a7d-42bdf2e1677a" actual="#[payload]" expected='#[{message: "Resource not found"}]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="accelerator-jira-sys-api-main-BADREQUEST" doc:id="e9d07a36-b582-470a-b34c-ec74faf5911e" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="ebf24de6-46e4-4ba4-89d6-70526cdc4cba" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="accelerator-jira-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:BAD_REQUEST" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="ffbddf35-764b-4d76-bfb2-9fc1a0a91cbf" >
+				<flow-ref doc:name="Flow Reference" doc:id="a4ddf37b-c4c5-427a-99be-706c3ceb5d44" name="accelerator-jira-sys-api-main"/>
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="32d748e1-c5a2-4cc9-82ce-e3eeea6cf556" >
+						<logger level="INFO" doc:name="Logger" doc:id="cac6f5a9-88aa-48b3-a923-2769f9187853" message="#[payload]"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="9ae7b14b-40c0-42bb-a588-1a43a160cc34" actual="#[payload]" expected='#[{message: "Bad request"}]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="accelerator-jira-sys-api-main-api-METHOD_NOT_ALLOWED" doc:id="469284c1-e2e9-4975-bcfa-76db3419123e" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c31c9556-319f-46c5-9585-edbffddf03fe" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="accelerator-jira-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="10dc987e-1935-447b-9f81-211856fdd5b3" >
+				<flow-ref doc:name="Flow Reference" doc:id="9a3424f4-d12a-49a0-8d06-6188af784bb7" name="accelerator-jira-sys-api-main"/>
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="8a54f262-4381-45f8-a2f2-869547dc4fd2" >
+						<logger level="INFO" doc:name="Logger" doc:id="ab070a0a-49c9-4820-8530-101a2263fac7" message="#[payload]"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="3e41c343-7b3b-43be-8deb-c9cb54cc9fbf" expected='#[{message: "Method not allowed"}]' actual="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="accelerator-jira-sys-api-main-UNSUPPORTED_MEDIA_TYPE" doc:id="dc52be4f-4011-4e91-a0a6-f7cd975280ee" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="7a06fdd8-70ac-44e2-a7cc-206433e41467" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="accelerator-jira-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="83b92c99-201c-42a9-b61d-e57c8ef5d4e7" >
+				<flow-ref doc:name="Flow Reference" doc:id="3b4c98d8-f5b7-43dd-8eed-187f5a3cd4a6" name="accelerator-jira-sys-api-main"/>
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="f526b940-53e5-48e1-8019-d5c62d173a32" >
+						<logger level="INFO" doc:name="Logger" doc:id="2de2b3b9-9432-4ade-9e2b-87f2c57ddf91" message="#[payload]"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="7f2b1ac9-d9e4-4079-8c08-61fba36a7b02" actual="#[payload]" expected='#[{message: "Unsupported media type"}]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="accelerator-jira-sys-api-main-test-NOT_IMPLEMENTED" doc:id="231cecfc-f2c4-4eb5-89b2-9944f58ae7e3" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="9043699b-be6f-4961-bbbb-4f1e0d082935" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="accelerator-jira-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="64f95ea7-cafd-403a-b3e4-9f75affe374b" >
+				<flow-ref doc:name="Flow Reference" doc:id="13edee31-cd98-45e5-8fa1-8bfcc323c2ed" name="accelerator-jira-sys-api-main"/>
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="356e2dfb-feca-49de-841e-a1c3aec83463" >
+						<logger level="INFO" doc:name="Logger" doc:id="8475a494-6aa0-44a4-a24b-4521c69524cc" message="#[payload]"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="ba8122f9-9c93-4922-ac2a-890d0345964c" actual="#[payload]" expected='#[{message: "Not Implemented"}]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="accelerator-jira-sys-api-main-consoleTest" doc:id="bb6248b2-f4ad-4488-9792-ef953812025a" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="36d06ae7-1072-4423-9898-09b21d376a8a" processor="apikit:console">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="accelerator-jira-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to aaccelerator-jira-exp-api-console" doc:id="6cedd1d9-3576-4f23-bf02-95e04e4f130e" name="accelerator-jira-sys-api-console"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="984d8de2-460b-468d-9aab-ee0f617d40c1" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="accelerator-jira-sys-api-main-APIKIT:NOT_ACCEPTABLE" doc:id="909ea152-5fc2-45c6-85cc-956d273073b8" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c05391c6-7a90-4edc-b560-cd1a87d5c0d5" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="accelerator-jira-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_ACCEPTABLE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="2755e423-6ca5-44ab-b98d-362eb47068d5" >
+				<flow-ref doc:name="Flow Reference" doc:id="993ddf84-d2ac-4286-8841-108ee9aaac76" name="accelerator-jira-sys-api-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="451be3bf-4a00-471c-990e-e5826f986a52" >
+						<logger level="INFO" doc:name="Logger" doc:id="4307ee1d-3ebd-49f9-8794-c233a5521f51" message="#[payload]"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="38e23692-37c2-4dbc-881e-1f9d5539464c" actual="#[payload]" expected='#[{message: "Not acceptable"}]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="accelerator-jira-sys-api-console-notfound" doc:id="a1baa4df-ec54-4008-a76e-503432f8a36e" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="9fcc9623-f7fc-4382-96e6-082616b8aeec" processor="apikit:console">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="accelerator-jira-sys-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="7464a6bf-39ae-4c9f-852c-66208c26c75b" >
+				<flow-ref doc:name="Flow Reference" doc:id="f631d1fb-4ba0-4d43-b3e1-cfb221b47980" name="accelerator-jira-sys-api-console"/>
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="b121a777-1d93-42fa-8be4-d951ec64c5c9" >
+						<logger level="INFO" doc:name="Logger" doc:id="36992ded-c84c-4803-9921-d9731e9c6baf" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="587e98ac-bef5-49e7-a3d5-b9b618439bd4" actual="#[payload]" expected='#[{message: "Resource not found"}]'/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
+
