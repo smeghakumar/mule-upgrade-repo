@@ -1,0 +1,27 @@
+
+api: 
+  
+  artifactId: "sys-claims-app-v1-dev"
+  version: "1.0.0"
+  majorVersion: "v1"
+  port: "8083"
+  
+# reconnection configuration
+"retries":
+  "frequency": "1000"
+  "attempts": "3"
+  "timeout": "400000" 
+  
+jks.keystore:
+ password: "mulesoft"
+ type: "jks"
+ path: "certs/keystore.jks" 
+  
+tls.keystore:
+
+ type: "pkcs12"
+ alias: "server"
+ path: "certs/sys-claims-cms-dev.p12"
+  
+"autodiscovery":
+  "id": "17510995" 
