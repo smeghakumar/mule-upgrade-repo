@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="MULE_EE.4.9.3.user-identity-mgmt-sys-api-test-suite" time="0.0" failures="0" errors="1" skipped="0" tests="1">
+  <properties>
+    <property key="java.specification.version" value="17"/>
+    <property key="sun.jnu.encoding" value="UTF-8"/>
+    <property key="java.class.path" value="/opt/maven/boot/plexus-classworlds-2.7.0.jar"/>
+    <property key="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property key="sun.arch.data.model" value="64"/>
+    <property key="mule.resolve.mule.implementations.loader.dynamically" value="true"/>
+    <property key="java.vendor.url" value="https://adoptium.net/"/>
+    <property key="user.timezone" value="Etc/UTC"/>
+    <property key="maven.conf" value="/opt/maven/conf"/>
+    <property key="java.vm.specification.version" value="17"/>
+    <property key="os.name" value="Linux"/>
+    <property key="sun.java.launcher" value="SUN_STANDARD"/>
+    <property key="sun.boot.library.path" value="/opt/jdk-17.0.12+7/lib"/>
+    <property key="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean test -Dmunit.coverage.enabled=true -Dmunit.coverage.formats=html,json,console -Dmunit.coverage.runCoverage=true"/>
+    <property key="jdk.debug" value="release"/>
+    <property key="maven.home" value="/opt/maven"/>
+    <property key="sun.cpu.endian" value="little"/>
+    <property key="user.home" value="/root"/>
+    <property key="user.language" value="en"/>
+    <property key="java.specification.vendor" value="Oracle Corporation"/>
+    <property key="munit.coverage.enabled" value="true"/>
+    <property key="java.version.date" value="2024-07-16"/>
+    <property key="java.home" value="/opt/jdk-17.0.12+7"/>
+    <property key="file.separator" value="/"/>
+    <property key="java.vm.compressedOopsMode" value="32-bit"/>
+    <property key="line.separator" value="&#xa;"/>
+    <property key="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property key="java.specification.name" value="Java Platform API Specification"/>
+    <property key="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property key="java.runtime.version" value="17.0.12+7"/>
+    <property key="user.name" value="root"/>
+    <property key="mule.server.action.repetition.allowed" value="true"/>
+    <property key="path.separator" value=":"/>
+    <property key="os.version" value="6.11.0-9-generic"/>
+    <property key="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property key="file.encoding" value="UTF-8"/>
+    <property key="guice.disable.misplaced.annotation.check" value="true"/>
+    <property key="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property key="java.vendor.version" value="Temurin-17.0.12+7"/>
+    <property key="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property key="java.io.tmpdir" value="/tmp"/>
+    <property key="java.version" value="17.0.12"/>
+    <property key="user.dir" value="/root/intelog-be/upgraded-projects/archive/user-identity-management-sys-api_work"/>
+    <property key="os.arch" value="amd64"/>
+    <property key="maven.multiModuleProjectDirectory" value="/root/intelog-be/upgraded-projects/archive/user-identity-management-sys-api_work"/>
+    <property key="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property key="native.encoding" value="UTF-8"/>
+    <property key="munit.coverage.formats" value="html,json,console"/>
+    <property key="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property key="java.vm.info" value="mixed mode, sharing"/>
+    <property key="java.vendor" value="Eclipse Adoptium"/>
+    <property key="java.vm.version" value="17.0.12+7"/>
+    <property key="classworlds.conf" value="/opt/maven/bin/m2.conf"/>
+    <property key="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property key="library.jansi.path" value="/opt/maven/lib/jansi-native"/>
+    <property key="munit.coverage.runCoverage" value="true"/>
+    <property key="java.class.version" value="61.0"/>
+    <property key="mule.classloader.container.jpmsModuleLayer" value="false"/>
+    <property key="munit.system.properties.file" value="/root/intelog-be/upgraded-projects/archive/user-identity-management-sys-api_work/target/user.system.properties"/>
+    <property key="org.glassfish.grizzly.DEFAULT_MEMORY_MANAGER" value="org.glassfish.grizzly.memory.HeapMemoryManager"/>
+  </properties>
+  <testcase time="0.0" name="user-identity-mgmt-sys-api-test-suite.xml" classname="MULE_EE.4.9.3.user-identity-mgmt-sys-api-test-suite">
+    <error>java.lang.IllegalStateException: Cannot create embedded container
+	at Loader-org.mule.runtime.embedded.api/org.mule.runtime.embedded.api@1.10.0/org.mule.runtime.module.embedded.internal.DefaultEmbeddedContainerBuilder.build(DefaultEmbeddedContainerBuilder.java:130)
+	at Loader-munit.remote/munit.remote@3.6.1/org.mule.munit.remote.container.EmbeddedContainerFactory.createContainer(EmbeddedContainerFactory.java:78)
+	at Loader-munit.remote/munit.remote@3.6.1/org.mule.munit.remote.SuiteRunDispatcherFactory.create(SuiteRunDispatcherFactory.java:40)
+	at Loader-munit.remote/munit.remote@3.6.1/org.mule.munit.remote.RemoteRunner.buildSuiteRunDispatcher(RemoteRunner.java:117)
+	at Loader-munit.remote/munit.remote@3.6.1/org.mule.munit.remote.RemoteRunner.run(RemoteRunner.java:96)
+	at Loader-munit.remote/munit.remote@3.6.1/org.mule.munit.remote.RemoteRunner.main(RemoteRunner.java:73)
+	at Loader-munit.remote/munit.remote@3.6.1/org.mule.munit.remote.RemoteRunner.mainStarter(RemoteRunner.java:80)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at munit.starter@3.6.1/org.mule.munit.starter.LayerStarter.main(LayerStarter.java:82)
+Caused by: java.lang.IllegalArgumentException: Could not find embedded container bom artifact
+	at Loader-org.mule.runtime.embedded.api/org.mule.runtime.embedded.api@1.10.0/org.mule.runtime.module.embedded.internal.MavenContainerOptSeparateClassLoaderFactory.create(MavenContainerOptSeparateClassLoaderFactory.java:75)
+	at Loader-org.mule.runtime.embedded.api/org.mule.runtime.embedded.api@1.10.0/org.mule.runtime.module.embedded.internal.DefaultEmbeddedContainerBuilder.build(DefaultEmbeddedContainerBuilder.java:124)
+	... 11 more
+Caused by: org.mule.maven.client.api.BundleDependenciesResolutionException: org.eclipse.aether.resolution.ArtifactDescriptorException: Failed to read artifact descriptor for com.mulesoft.mule.distributions:mule-runtime-impl-no-services-bom:pom:4.9.3
+	at Loader-org.mule.runtime.maven.client.impl/org.mule.runtime.maven.client.impl@2.5.0/org.mule.maven.client.internal.MuleMavenClient.resolveBundleDescriptorDependencies(MuleMavenClient.java:318)
+	at Loader-org.mule.runtime.maven.client.impl/org.mule.runtime.maven.client.impl@2.5.0/org.mule.maven.client.internal.MuleMavenClient.resolveBundleDescriptorDependencies(MuleMavenClient.java:276)
+	at Loader-org.mule.runtime.embedded.api/org.mule.runtime.embedded.api@1.10.0/org.mule.runtime.module.embedded.internal.dependencies.DefaultDependencyResolver.resolveBundleDescriptorDependencies(DefaultDependencyResolver.java:26)
+	at Loader-org.mule.runtime.embedded.api/org.mule.runtime.embedded.api@1.10.0/org.mule.runtime.module.embedded.internal.MavenClientMuleDependenciesResolver.resolveContainerDependencies(MavenClientMuleDependenciesResolver.java:93)
+	at Loader-org.mule.runtime.embedded.api/org.mule.runtime.embedded.api@1.10.0/org.mule.runtime.module.embedded.internal.MavenClientMuleDependenciesResolver.resolveMuleLibs(MavenClientMuleDependenciesResolver.java:76)
+	at Loader-org.mule.runtime.embedded.api/org.mule.runtime.embedded.api@1.10.0/org.mule.runtime.module.embedded.internal.MavenContainerOptSeparateClassLoaderFactory.create(MavenContainerOptSeparateClassLoaderFactory.java:65)
+	... 12 more
+Caused by: org.eclipse.aether.resolution.ArtifactDescriptorException: Failed to read artifact descriptor for com.mulesoft.mule.distributions:mule-runtime-impl-no-services-bom:pom:4.9.3
+	at Loader-maven.resolver.provider/maven.resolver.provider@3.9.6/org.apache.maven.repository.internal.DefaultArtifactDescriptorReader.loadPom(DefaultArtifactDescriptorReader.java:245)
+	at Loader-maven.resolver.provider/maven.resolver.provider@3.9.6/org.apache.maven.repository.internal.DefaultArtifactDescriptorReader.readArtifactDescriptor(DefaultArtifactDescriptorReader.java:175)
+	at Loader-org.apache.maven.resolver.impl/org.apache.maven.resolver.impl@1.9.22/org.eclipse.aether.internal.impl.DefaultRepositorySystem.readArtifactDescriptor(DefaultRepositorySystem.java:269)
+	at Loader-org.mule.runtime.maven.client.impl/org.mule.runtime.maven.client.impl@2.5.0/org.mule.maven.client.internal.MuleMavenClient.resolveBundleDescriptorDependencies(MuleMavenClient.java:288)
+	... 17 more
+Caused by: org.eclipse.aether.resolution.ArtifactResolutionException: The following artifacts could not be resolved: com.mulesoft.mule.distributions:mule-runtime-impl-no-services-bom:pom:4.9.3 (absent): Could not find artifact com.mulesoft.mule.distributions:mule-runtime-impl-no-services-bom:pom:4.9.3 in maven-central (https://repo.maven.apache.org/maven2/)
+	at Loader-org.apache.maven.resolver.impl/org.apache.maven.resolver.impl@1.9.22/org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:473)
+	at Loader-org.apache.maven.resolver.impl/org.apache.maven.resolver.impl@1.9.22/org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:261)
+	at Loader-org.apache.maven.resolver.impl/org.apache.maven.resolver.impl@1.9.22/org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:243)
+	at Loader-maven.resolver.provider/maven.resolver.provider@3.9.6/org.apache.maven.repository.internal.DefaultArtifactDescriptorReader.loadPom(DefaultArtifactDescriptorReader.java:234)
+	... 20 more
+Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find artifact com.mulesoft.mule.distributions:mule-runtime-impl-no-services-bom:pom:4.9.3 in maven-central (https://repo.maven.apache.org/maven2/)
+	at Loader-org.apache.maven.resolver.connector.basic/org.apache.maven.resolver.connector.basic@1.9.22/org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:42)
+	at Loader-org.apache.maven.resolver.connector.basic/org.apache.maven.resolver.connector.basic@1.9.22/org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:417)
+	at Loader-org.apache.maven.resolver.connector.basic/org.apache.maven.resolver.connector.basic@1.9.22/org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:260)
+	at Loader-org.apache.maven.resolver.impl/org.apache.maven.resolver.impl@1.9.22/org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:537)
+	at Loader-org.apache.maven.resolver.impl/org.apache.maven.resolver.impl@1.9.22/org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:449)
+	... 23 more
+</error>
+  </testcase>
+</testsuite>
