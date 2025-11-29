@@ -1,5 +1,5 @@
 {
-  "runToken": "f6e1ffae-6bfd-4b97-bf93-24ec3343fdee",
+  "runToken": "07d855a3-1c77-4c01-8b04-0311f5fa727e",
   "projectName": "user-identity-management-system",
   "domainLocation": "",
   "tags": [],
@@ -20,7 +20,7 @@
         {
           "name": "runToken",
           "type": "java.lang.String",
-          "value": "f6e1ffae-6bfd-4b97-bf93-24ec3343fdee"
+          "value": "07d855a3-1c77-4c01-8b04-0311f5fa727e"
         }
       ]
     }
@@ -66,7 +66,7 @@
       ],
       "runtimeId": "4.9.3",
       "product": "MULE_EE",
-      "munitWorkingDirectoryPath": "/root/intelog-be/upgraded-projects/archive/user-identity-management-sys-api_work/target/munitworkingdir-11222080125677023",
+      "munitWorkingDirectoryPath": "/root/intelog-be/upgraded-projects/archive/user-identity-management-sys-api_work/target/munitworkingdir-11222264447373796",
       "log4JConfigurationFilePath": "/root/intelog-be/upgraded-projects/archive/user-identity-management-sys-api_work/target/test-classes/log4j2-test.xml"
     }
   },
