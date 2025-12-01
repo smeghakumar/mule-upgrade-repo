@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="aws-assets-publish-suite.xml" />
+	<munit:test name="update-url-flow-test" doc:id="35025044-16b9-46a5-838f-69860e6adaed" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Publishing Payload to Aws Assets Queue" doc:id="ac8e3704-f2d3-4fae-8ab5-a8e349af2487" processor="anypoint-mq:publish">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fb71f3ca-2f7d-4bbf-8298-ba214c2f8001" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[readUrl('classpath://updateurlflowtest\mock_payload.dwl')]" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://updateurlflowtest\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="tomail" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="appName" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://updateurlflowtest\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="vFlowName" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_3.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="flag" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_4.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="correlationId" value="#[output application/json --- readUrl('classpath://updateurlflowtest\mock_variable_5.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="vTimeStamp" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_6.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="sub" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_7.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Exit Logger Flow" doc:id="4ec0dbe8-27d9-417f-9f26-2a1dfd8437ec" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="30c01ca4-132b-4118-bdc7-7beafc57e89e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://updateurlflowtest\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://updateurlflowtest\mock_attributes1.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="tomail" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_8.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="appName" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_9.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://updateurlflowtest\mock_variable_10.dwl')]" />
+						<munit-tools:variable key="vFlowName" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_11.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="flag" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_12.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="correlationId" value="#[output application/json --- readUrl('classpath://updateurlflowtest\mock_variable_13.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="vTimeStamp" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_14.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="sub" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_15.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Entry Logger Flow" doc:id="bccee126-0d2b-4647-9a53-b7a336d5a61d" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4d4c1672-c376-4f1d-8b39-6422d8e80f41" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://updateurlflowtest\mock_payload2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://updateurlflowtest\mock_attributes2.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="tomail" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_16.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="appName" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_17.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://updateurlflowtest\mock_variable_18.dwl')]" />
+						<munit-tools:variable key="vFlowName" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_19.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="flag" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_20.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="correlationId" value="#[output application/json --- readUrl('classpath://updateurlflowtest\mock_variable_21.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="vTimeStamp" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_22.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="sub" value="#[output application/java --- readUrl('classpath://updateurlflowtest\mock_variable_23.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="22c272d5-e8af-4d6b-8b29-d2e9b08794b0" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://updateurlflowtest\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://updateurlflowtest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://updateurlflowtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to update-url-flow" doc:id="a377e9db-4341-497c-9bf2-f74c35b4951e" name="update-url-flow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="17e385a1-b0c8-4a25-8a12-111605ea8642" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import updateurlflowtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

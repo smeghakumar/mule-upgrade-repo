@@ -1,0 +1,30 @@
+{
+  "headers": {
+    "x-correlation-id": "12121212",
+    "username": "dad",
+    "password": "dada",
+    "user-agent": "PostmanRuntime/7.28.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "223c6f10-443f-4025-b547-bb78bcbfbbf4",
+    "host": "localhost:8082",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive"
+  },
+  "clientCertificate": null,
+  "method": "GET",
+  "scheme": "http",
+  "queryParams": {},
+  "requestUri": "/api/health",
+  "queryString": "",
+  "version": "HTTP/1.1",
+  "maskedRequestPath": "/health",
+  "listenerPath": "/api/*",
+  "relativePath": "/api/health",
+  "localAddress": "/127.0.0.1:8082",
+  "uriParams": {},
+  "rawRequestUri": "/api/health",
+  "rawRequestPath": "/api/health",
+  "remoteAddress": "/127.0.0.1:51172",
+  "requestPath": "/api/health"
+}

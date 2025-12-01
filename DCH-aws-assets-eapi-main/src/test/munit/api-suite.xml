@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="api-suite.xml" />
+	<munit:test name="aws-assets-eapi-main-test" doc:id="ff6686aa-9253-4fd9-addf-6e0b2f251d3f" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock APIkit Router" doc:id="b86abea8-43e6-471e-b897-b6f6fbdf0088" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fabf8e34-8e4a-4605-854e-2c94af456ff2" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://awsassetseapimaintest\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://awsassetseapimaintest\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://awsassetseapimaintest\mock_variable_.dwl')]" />
+						<munit-tools:variable key="httpStatus" value="#[readUrl('classpath://awsassetseapimaintest\mock_variable_1.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="2c4d49e2-f088-4eb7-aba7-9db12f6c073f" >
+				<munit:payload value="#[readUrl('classpath://awsassetseapimaintest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://awsassetseapimaintest\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to aws-assets-eapi-main" doc:id="325cf5c2-ebd4-471e-a160-73d3db41aa41" name="aws-assets-eapi-main"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="742b2d22-19d7-4184-b876-a9b7d8cdb535" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import awsassetseapimaintest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="aws-assets-eapi-console-test" doc:id="5a6d9d8d-b6d2-4c71-9b15-d6948ab220fd" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock APIkit Console" doc:id="8c940782-7f51-4ca3-8db7-2bf76e260688" processor="apikit:console">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="75940de2-8cde-4286-a585-e60d56f2bdd6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[readUrl('classpath://awsassetseapiconsoletest\mock_payload.dwl')]" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://awsassetseapiconsoletest\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://awsassetseapiconsoletest\mock_variable_.dwl')]" />
+						<munit-tools:variable key="httpStatus" value="#[readUrl('classpath://awsassetseapiconsoletest\mock_variable_1.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="e1f3ec67-b457-4474-8b25-8df49fae099a" >
+				<munit:payload value="#[readUrl('classpath://awsassetseapiconsoletest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://awsassetseapiconsoletest\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to aws-assets-eapi-console" doc:id="9472b85d-4b42-4c43-8c13-3c8cbd0008ff" name="aws-assets-eapi-console"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="8863d77a-9621-4751-a782-f7a79bae0c55" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import awsassetseapiconsoletest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="post:\assets:application\json:aws-assets-eapi-config-test" doc:id="9f0d06dd-87c1-45f2-88f7-13739d08410d" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Update Url Flow" doc:id="9c9bfd27-ff94-4aae-aca3-6e37e68d9878" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="96bea41c-eba8-464b-bc64-851792f5842e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="tomail" value="#[output application/java --- readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_variable_.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="appName" value="#[output application/java --- readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="vFlowName" value="#[output application/java --- readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_variable_3.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="flag" value="#[output application/java --- readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_variable_4.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="correlationId" value="#[output application/json --- readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_variable_5.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="vTimeStamp" value="#[output application/java --- readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_variable_6.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="sub" value="#[output application/java --- readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\mock_variable_7.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="ff0592cf-58db-4127-afaf-449bd84e1ac5" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://postassetsapplicationjsonawsassetseapiconfigtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\assets:application\json:aws-assets-eapi-config" doc:id="e2ae2554-156d-4370-aa67-b60546179141" name="post:\assets:application\json:aws-assets-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="6eb430bf-52a0-4c6c-8068-f0bcf5749a8f" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import postassetsapplicationjsonawsassetseapiconfigtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="get:\health:aws-assets-eapi-config-test" doc:id="166bc9e4-6ba3-4aaf-8265-421233f36732" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Health Api Flow" doc:id="dee8573c-1740-4a46-9463-820c9e91c705" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="25203162-0436-4ea2-a0af-de7ba893009d" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://gethealthawsassetseapiconfigtest\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://gethealthawsassetseapiconfigtest\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://gethealthawsassetseapiconfigtest\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="5f97e622-cf95-43a5-a88a-4e66eaf1c1c8" >
+				<munit:payload value="#[readUrl('classpath://gethealthawsassetseapiconfigtest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://gethealthawsassetseapiconfigtest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://gethealthawsassetseapiconfigtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\health:aws-assets-eapi-config" doc:id="f9eba6f7-2e1a-46c4-87fc-0577b92ec058" name="get:\health:aws-assets-eapi-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="da5be484-60e0-455c-bb6b-5cd24cb16871" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import gethealthawsassetseapiconfigtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
