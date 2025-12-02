@@ -1,3 +1,0 @@
-{
-  "message": "Public URL modified"
-}
