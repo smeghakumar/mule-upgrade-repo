@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+	 <http:listener-config name="contact-details-sync-service-sys-api-http-listener-config">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+	
+	<db:config name="database-config" doc:name="Database Config" doc:id="e8ba24f0-670b-44a4-981a-e5ec88221c2a" >
+		<db:my-sql-connection host="${db.host}" port="${db.port}" user="${db.user}" password="${db.password}" database="${db.name}" />
+	</db:config>
+	
+	
+	<configuration doc:name="Configuration" doc:id="918df0b2-30b6-4a28-9c97-b8462810827c" defaultErrorHandler-ref="globalError_Handler" />
+	<global-property doc:name="Global Property" doc:id="4e1260c3-e97c-4be6-beb2-6001c3f7d7c7" name="env" value="local" />
+	<configuration-properties doc:name="Configuration properties" doc:id="2480e479-6c95-4bdc-82a5-0ccd6f68510e" file="config/contact.details.google.sheet.sync.service.sys.api.${env}.yaml" />
+	<error-handler name="globalError_Handler" doc:id="af8d57be-e4c0-4116-9805-642a64793569" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="9449b977-d615-4e50-93a7-86794ebb7444" type="APP:UNAUTHORIZED">
+			<ee:transform doc:name="Transform Message" doc:id="feaf4c79-f5a3-41ec-9f16-794ae21dd912" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output text/plain
+---
+"Incorrect Client Id or Client Secret."]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger" doc:id="b7e904b5-20d0-4858-a0b3-501782d82cbf" message="#[payload]"/>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="97152aff-0bb7-4b6b-9bf1-c57931a7a773" type="DATABASE:ERROR">
+			<ee:transform doc:name="Transform Message" doc:id="5547dcdb-1111-4b63-8426-6f52ff4830f2">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
+output text/json
+---
+{
+	"errorType": error.errorType.identifier as String
+	 ++ ":" ++ error.errorType.namespace as String,
+	"errorMessage": error.detailedDescription
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger" doc:id="0e473755-8cca-45ba-a747-10f3f476f9d1" message="#[payload]" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="99693887-bf2e-4361-8552-47143e0fe92f" type="ANY">
+			<ee:transform doc:name="Transform Message" doc:id="9a119850-ed40-4ded-af93-f628aabe82f5">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
+output text/json
+---
+{
+	"errorType": error.errorType.identifier as String
+	 ++ ":" ++ error.errorType.namespace as String,
+	"errorMessage": error.detailedDescription
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger" doc:id="74738651-5b2c-4d25-ba9a-8074aaee177d" message="#[payload]"/>
+		</on-error-propagate>
+		
+	
+</error-handler>
+
+</mule>
