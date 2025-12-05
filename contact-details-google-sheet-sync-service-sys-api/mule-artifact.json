@@ -10,7 +10,7 @@
   ],
   "redeploymentEnabled": true,
   "name": "contact-details-google-sheet-sync-service-sys-api.xml",
-  "minMuleVersion": "4.10.0",
+  "minMuleVersion": "4.9.3",
   "requiredProduct": "MULE_EE",
   "classLoaderModelLoaderDescriptor": {
     "id": "mule",
