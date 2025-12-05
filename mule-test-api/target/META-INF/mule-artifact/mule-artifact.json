@@ -6,7 +6,7 @@
   "supportedJavaVersions": [],
   "redeploymentEnabled": true,
   "name": "com.mycompany:mule-test-api:1.0.0-SNAPSHOT",
-  "minMuleVersion": "4.9.3",
+  "minMuleVersion": "4.10.0",
   "requiredProduct": "MULE",
   "classLoaderModelLoaderDescriptor": {
     "id": "mule",
